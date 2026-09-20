@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Profile - ShopHub</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            background: #111827;
+            color: white;
+
+            padding: 18px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+
+        nav a {
+            color: white;
+            text-decoration: none;
+
+            margin-left: 20px;
+
+            font-size: 15px;
+        }
+
+
+        nav a:hover {
+            color: #60a5fa;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .page-header {
+            background: white;
+
+            padding: 45px 7%;
+
+            text-align: center;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .page-header h1 {
+            font-size: 36px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .page-header p {
+            color: #6b7280;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 90%;
+
+            max-width: 900px;
+
+            margin: 40px auto;
+        }
+
+
+        /* =========================
+           PROFILE CARD
+        ========================= */
+
+        .profile-card {
+            background: white;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 25px
+                rgba(0, 0, 0, 0.07);
+        }
+
+
+        .profile-top {
+            background: #2563eb;
+
+            padding: 40px 30px;
+
+            text-align: center;
+
+            color: white;
+        }
+
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            color: #2563eb;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 42px;
+
+            font-weight: bold;
+
+            border: 5px solid
+                rgba(255, 255, 255, 0.3);
+        }
+
+
+        .profile-top h2 {
+            font-size: 26px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .profile-top p {
+            opacity: 0.9;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           PROFILE DETAILS
+        ========================= */
+
+        .profile-body {
+            padding: 30px;
+        }
+
+
+        .section-title {
+            font-size: 20px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .info-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+        }
+
+
+        .info-box {
+            background: #f9fafb;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            padding: 20px;
+        }
+
+
+        .info-label {
+            color: #6b7280;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+
+        .info-value {
+            font-size: 16px;
+
+            font-weight: bold;
+
+            word-break: break-word;
+        }
+
+
+        /* =========================
+           ROLE BADGE
+        ========================= */
+
+        .role-badge {
+            display: inline-block;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            background: #dbeafe;
+
+            color: #1d4ed8;
+        }
+
+
+        .role-admin {
+            background: #fef3c7;
+
+            color: #92400e;
+        }
+
+
+        /* =========================
+           ACTIONS
+        ========================= */
+
+        .actions {
+            margin-top: 30px;
+
+            padding-top: 25px;
+
+            border-top: 1px solid #e5e7eb;
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+
+        .action-btn {
+            display: inline-block;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            border: none;
+
+            cursor: pointer;
+        }
+
+
+        .orders-btn {
+            background: #2563eb;
+
+            color: white;
+        }
+
+
+        .cart-btn {
+            background: #16a34a;
+
+            color: white;
+        }
+
+
+        .home-btn {
+            background: #e5e7eb;
+
+            color: #111827;
+        }
+
+
+        .admin-btn {
+            background: #111827;
+
+            color: white;
+
+            display: none;
+        }
+
+
+        .logout-btn {
+            background: #dc2626;
+
+            color: white;
+        }
+
+
+        .action-btn:hover {
+            opacity: 0.88;
+        }
+
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .loading {
+            background: white;
+
+            padding: 60px;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            color: #6b7280;
+
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           ERROR
+        ========================= */
+
+        .error-box {
+            display: none;
+
+            background: white;
+
+            padding: 50px 20px;
+
+            border-radius: 15px;
+
+            text-align: center;
+        }
+
+
+        .error-box h2 {
+            margin-bottom: 10px;
+        }
+
+
+        .error-box p {
+            color: #6b7280;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .message {
+            position: fixed;
+
+            top: 25px;
+
+            right: 25px;
+
+            padding: 15px 22px;
+
+            color: white;
+
+            border-radius: 9px;
+
+            display: none;
+
+            z-index: 1000;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #111827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 30px;
+
+            margin-top: 70px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            nav {
+                flex-direction: column;
+            }
+
+
+            nav a {
+                margin: 0 6px;
+
+                font-size: 13px;
+            }
+
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+
+            .profile-body {
+                padding: 20px;
+            }
+
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .actions {
+                flex-direction: column;
+            }
+
+
+            .action-btn {
+                text-align: center;
+
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav>
+
+        <div class="logo">
+            🛍️ ShopHub
+        </div>
+
+
+        <div>
+
+            <a href="/">
+                Home
+            </a>
+
+
+            <a href="/products">
+                Products
+            </a>
+
+
+            <a href="/cart">
+                Cart 🛒
+            </a>
+
+
+            <a href="/orders">
+                My Orders
+            </a>
+
+
+            <a href="/profile">
+                Profile
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <section class="page-header">
+
+        <h1>
+            👤 My Profile
+        </h1>
+
+
+        <p>
+            Manage and view your ShopHub account
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <div class="container">
+
+
+        <!-- LOADING -->
+
+        <div
+            id="loading"
+            class="loading"
+        >
+            Loading your profile...
+        </div>
+
+
+
+        <!-- ERROR -->
+
+        <div
+            id="errorBox"
+            class="error-box"
+        >
+
+            <h2>
+                ❌ Unable to Load Profile
+            </h2>
+
+
+            <p id="errorText">
+                Something went wrong.
+            </p>
+
+
+            <a
+                href="/login"
+                class="action-btn orders-btn"
+            >
+                Login Again
+            </a>
+
+        </div>
+
+
+
+        <!-- PROFILE -->
+
+        <div
+            id="profileCard"
+            class="profile-card"
+            style="display:none;"
+        >
+
+
+            <!-- PROFILE TOP -->
+
+            <div class="profile-top">
+
+                <div
+                    id="avatar"
+                    class="avatar"
+                >
+                    U
+                </div>
+
+
+                <h2 id="profileName">
+                    User
+                </h2>
+
+
+                <p id="profileEmail">
+                    user@example.com
+                </p>
+
+            </div>
+
+
+
+            <!-- PROFILE BODY -->
+
+            <div class="profile-body">
+
+
+                <h3 class="section-title">
+                    Account Information
+                </h3>
+
+
+
+                <div class="info-grid">
+
+
+                    <!-- NAME -->
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            Full Name
+                        </div>
+
+
+                        <div
+                            id="nameValue"
+                            class="info-value"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            Email Address
+                        </div>
+
+
+                        <div
+                            id="emailValue"
+                            class="info-value"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ROLE -->
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            Account Type
+                        </div>
+
+
+                        <div>
+
+                            <span
+                                id="roleValue"
+                                class="role-badge"
+                            >
+                                User
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- USER ID -->
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            Account ID
+                        </div>
+
+
+                        <div
+                            id="idValue"
+                            class="info-value"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ACTIONS -->
+
+                <div class="actions">
+
+
+                    <a
+                        href="/orders"
+                        class="action-btn orders-btn"
+                    >
+                        📦 My Orders
+                    </a>
+
+
+                    <a
+                        href="/cart"
+                        class="action-btn cart-btn"
+                    >
+                        🛒 My Cart
+                    </a>
+
+
+                    <a
+                        href="/products"
+                        class="action-btn home-btn"
+                    >
+                        🛍️ Continue Shopping
+                    </a>
+
+
+                    <a
+                        href="/admin"
+                        id="adminBtn"
+                        class="action-btn admin-btn"
+                    >
+                        ⚙️ Admin Dashboard
+                    </a>
+
+
+                    <button
+                        onclick="logout()"
+                        class="action-btn logout-btn"
+                    >
+                        🚪 Logout
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- MESSAGE -->
+
+    <div
+        id="message"
+        class="message"
+    >
+    </div>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <p>
+            © 2026 ShopHub.
+            All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+
+        // =========================
+        // LOAD PROFILE
+        // =========================
+
+        async function loadProfile() {
+
+            const token =
+                localStorage.getItem(
+                    "token"
+                );
+
+
+            if (!token) {
+
+                window.location.href =
+                    "/login";
+
+                return;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/auth/profile",
+                        {
+
+                            method: "GET",
+
+                            headers: {
+
+                                "Authorization":
+                                    `Bearer ${token}`
+
+                            }
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                // =====================
+                // SESSION EXPIRED
+                // =====================
+
+                if (
+                    response.status === 401
+                ) {
+
+                    localStorage.removeItem(
+                        "token"
+                    );
+
+                    localStorage.removeItem(
+                        "user"
+                    );
+
+
+                    alert(
+                        "Your session has expired. Please login again."
+                    );
+
+
+                    window.location.href =
+                        "/login";
+
+
+                    return;
+
+                }
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Failed to load profile"
+                    );
+
+                }
+
+
+                // =====================
+                // GET USER
+                // =====================
+
+                const user =
+                    data.user;
+
+
+                if (!user) {
+
+                    throw new Error(
+                        "User information not found"
+                    );
+
+                }
+
+
+                // =====================
+                // DISPLAY PROFILE
+                // =====================
+
+                displayProfile(
+                    user
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    error
+                );
+
+
+                document.getElementById(
+                    "loading"
+                ).style.display =
+                    "none";
+
+
+                document.getElementById(
+                    "errorBox"
+                ).style.display =
+                    "block";
+
+
+                document.getElementById(
+                    "errorText"
+                ).textContent =
+                    error.message ||
+                    "Unable to load profile.";
+
+            }
+
+        }
+
+
+
+        // =========================
+        // DISPLAY PROFILE
+        // =========================
+
+        function displayProfile(
+            user
+        ) {
+
+            document.getElementById(
+                "loading"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "profileCard"
+            ).style.display =
+                "block";
+
+
+            const name =
+                user.name ||
+                "User";
+
+
+            const email =
+                user.email ||
+                "Not available";
+
+
+            const role =
+                user.role ||
+                "user";
+
+
+            const id =
+                user._id ||
+                user.id ||
+                "Not available";
+
+
+            // =====================
+            // TOP SECTION
+            // =====================
+
+            document.getElementById(
+                "profileName"
+            ).textContent =
+                name;
+
+
+            document.getElementById(
+                "profileEmail"
+            ).textContent =
+                email;
+
+
+            // =====================
+            // AVATAR
+            // =====================
+
+            document.getElementById(
+                "avatar"
+            ).textContent =
+                getInitials(name);
+
+
+            // =====================
+            // DETAILS
+            // =====================
+
+            document.getElementById(
+                "nameValue"
+            ).textContent =
+                name;
+
+
+            document.getElementById(
+                "emailValue"
+            ).textContent =
+                email;
+
+
+            document.getElementById(
+                "idValue"
+            ).textContent =
+                String(id);
+
+
+            // =====================
+            // ROLE
+            // =====================
+
+            const roleElement =
+                document.getElementById(
+                    "roleValue"
+                );
+
+
+            roleElement.textContent =
+                role === "admin"
+                    ? "Administrator"
+                    : "Customer";
+
+
+            if (
+                role === "admin"
+            ) {
+
+                roleElement.classList.add(
+                    "role-admin"
+                );
+
+
+                document.getElementById(
+                    "adminBtn"
+                ).style.display =
+                    "inline-block";
+
+            }
+
+
+            // =====================
+            // SAVE UPDATED USER
+            // =====================
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify({
+                    id: id,
+                    name: name,
+                    email: email,
+                    role: role
+                })
+            );
+
+        }
+
+
+
+        // =========================
+        // GET INITIALS
+        // =========================
+
+        function getInitials(
+            name
+        ) {
+
+            const words =
+                name
+                    .trim()
+                    .split(/\s+/);
+
+
+            if (
+                words.length === 1
+            ) {
+
+                return words[0]
+                    .charAt(0)
+                    .toUpperCase();
+
+            }
+
+
+            return (
+                words[0].charAt(0) +
+                words[words.length - 1]
+                    .charAt(0)
+            ).toUpperCase();
+
+        }
+
+
+
+        // =========================
+        // LOGOUT
+        // =========================
+
+        function logout() {
+
+            localStorage.removeItem(
+                "token"
+            );
+
+
+            localStorage.removeItem(
+                "user"
+            );
+
+
+            showMessage(
+                "Logged out successfully.",
+                false
+            );
+
+
+            setTimeout(
+                () => {
+
+                    window.location.href =
+                        "/login";
+
+                },
+                700
+            );
+
+        }
+
+
+
+        // =========================
+        // MESSAGE
+        // =========================
+
+        function showMessage(
+            message,
+            isError
+        ) {
+
+            const box =
+                document.getElementById(
+                    "message"
+                );
+
+
+            box.textContent =
+                message;
+
+
+            box.style.display =
+                "block";
+
+
+            box.style.background =
+                isError
+                    ? "#dc2626"
+                    : "#16a34a";
+
+
+            setTimeout(
+                () => {
+
+                    box.style.display =
+                        "none";
+
+                },
+                2500
+            );
+
+        }
+
+
+
+        // =========================
+        // START
+        // =========================
+
+        loadProfile();
+
+
+    </script>
+
+</body>
+
+</html>

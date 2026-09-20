@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Products - ShopHub</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            background: #111827;
+            color: white;
+            padding: 18px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 15px;
+        }
+
+
+        nav a:hover {
+            color: #60a5fa;
+        }
+
+
+        /* =========================
+           PAGE HEADER
+        ========================= */
+
+        .page-header {
+            background: white;
+            padding: 40px 7%;
+            text-align: center;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .page-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+
+        .page-header p {
+            color: #6b7280;
+        }
+
+
+        /* =========================
+           CONTROLS
+        ========================= */
+
+        .controls {
+            width: 90%;
+            max-width: 1200px;
+
+            margin: 30px auto;
+
+            display: flex;
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+
+            padding: 14px 16px;
+
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+
+            font-size: 15px;
+            outline: none;
+        }
+
+
+        .search-box:focus {
+            border-color: #2563eb;
+        }
+
+
+        .category-select {
+            min-width: 190px;
+
+            padding: 14px 16px;
+
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+
+            background: white;
+
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+
+        .search-btn {
+            padding: 14px 22px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: #2563eb;
+            color: white;
+
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+
+        .search-btn:hover {
+            background: #1d4ed8;
+        }
+
+
+        /* =========================
+           RESULT INFO
+        ========================= */
+
+        .result-info {
+            width: 90%;
+            max-width: 1200px;
+
+            margin: 0 auto 20px;
+
+            color: #6b7280;
+        }
+
+
+        /* =========================
+           PRODUCTS GRID
+        ========================= */
+
+        .products-container {
+            width: 90%;
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(250px, 1fr)
+                );
+
+            gap: 25px;
+        }
+
+
+        /* =========================
+           PRODUCT CARD
+        ========================= */
+
+        .product-card {
+            background: white;
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.07);
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        .product-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(0, 0, 0, 0.12);
+        }
+
+
+        .product-image-box {
+            width: 100%;
+            height: 230px;
+
+            background: #f3f4f6;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+        }
+
+
+        .product-info {
+            padding: 20px;
+        }
+
+
+        .product-category {
+            color: #2563eb;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+
+        .product-name {
+            font-size: 20px;
+
+            margin-bottom: 10px;
+
+            color: #111827;
+        }
+
+
+        .product-description {
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            min-height: 42px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .product-price {
+            color: #16a34a;
+
+            font-size: 23px;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+
+        .product-stock {
+            font-size: 13px;
+
+            color: #6b7280;
+
+            margin-bottom: 16px;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+
+        .details-btn,
+        .cart-btn {
+            flex: 1;
+
+            padding: 12px 8px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+
+        .details-btn {
+            background: white;
+
+            border: 1px solid #2563eb;
+
+            color: #2563eb;
+
+            text-decoration: none;
+        }
+
+
+        .details-btn:hover {
+            background: #eff6ff;
+        }
+
+
+        .cart-btn {
+            background: #2563eb;
+
+            border: none;
+
+            color: white;
+        }
+
+
+        .cart-btn:hover {
+            background: #1d4ed8;
+        }
+
+
+        .cart-btn:disabled {
+            background: #9ca3af;
+
+            cursor: not-allowed;
+        }
+
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .loading {
+            text-align: center;
+
+            padding: 80px;
+
+            font-size: 20px;
+
+            color: #6b7280;
+        }
+
+
+        /* =========================
+           NO PRODUCTS
+        ========================= */
+
+        .no-products {
+            width: 90%;
+            max-width: 1200px;
+
+            margin: 50px auto;
+
+            text-align: center;
+
+            background: white;
+
+            padding: 50px;
+
+            border-radius: 15px;
+
+            color: #6b7280;
+
+            display: none;
+        }
+
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .message {
+            position: fixed;
+
+            top: 25px;
+            right: 25px;
+
+            background: #16a34a;
+
+            color: white;
+
+            padding: 15px 22px;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.15);
+
+            display: none;
+
+            z-index: 1000;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #111827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 30px;
+
+            margin-top: 70px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            nav {
+                flex-direction: column;
+            }
+
+
+            nav a {
+                margin: 0 7px;
+            }
+
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+
+            .controls {
+                flex-direction: column;
+            }
+
+
+            .search-box,
+            .category-select,
+            .search-btn {
+                width: 100%;
+            }
+
+
+            .buttons {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav>
+
+        <div class="logo">
+            🛍️ ShopHub
+        </div>
+
+
+        <div>
+
+            <a href="/">
+                Home
+            </a>
+
+
+            <a href="/products">
+                Products
+            </a>
+
+
+            <a href="/cart">
+                Cart 🛒
+            </a>
+
+
+            <a href="/orders">
+                Orders
+            </a>
+
+
+            <a href="/profile">
+                Profile
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         PAGE HEADER
+    ========================= -->
+
+    <section class="page-header">
+
+        <h1>
+            Our Products
+        </h1>
+
+
+        <p>
+            Find the perfect products for you
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         SEARCH & FILTER
+    ========================= -->
+
+    <div class="controls">
+
+        <input
+            type="text"
+            id="searchInput"
+            class="search-box"
+            placeholder="Search products..."
+        >
+
+
+        <select
+            id="categorySelect"
+            class="category-select"
+        >
+
+            <option value="">
+                All Categories
+            </option>
+
+        </select>
+
+
+        <button
+            class="search-btn"
+            onclick="applyFilters()"
+        >
+            🔍 Search
+        </button>
+
+    </div>
+
+
+
+    <!-- =========================
+         RESULT INFO
+    ========================= -->
+
+    <div
+        id="resultInfo"
+        class="result-info"
+    >
+        Loading products...
+    </div>
+
+
+
+    <!-- =========================
+         LOADING
+    ========================= -->
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        Loading products...
+    </div>
+
+
+
+    <!-- =========================
+         PRODUCTS
+    ========================= -->
+
+    <div
+        id="productsContainer"
+        class="products-container"
+    >
+    </div>
+
+
+
+    <!-- =========================
+         NO PRODUCTS
+    ========================= -->
+
+    <div
+        id="noProducts"
+        class="no-products"
+    >
+
+        <h2>
+            No Products Found
+        </h2>
+
+        <p>
+            Try another search or category.
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================
+         MESSAGE
+    ========================= -->
+
+    <div
+        id="message"
+        class="message"
+    >
+    </div>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <p>
+            © 2026 ShopHub.
+            All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        let allProducts = [];
+
+
+
+        // =========================
+        // LOAD PRODUCTS
+        // =========================
+
+        async function loadProducts() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/products"
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Failed to load products"
+                    );
+
+                }
+
+
+                allProducts =
+                    data.products || [];
+
+
+                createCategories();
+
+
+                displayProducts(
+                    allProducts
+                );
+
+
+                readURLFilters();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                document.getElementById(
+                    "loading"
+                ).textContent =
+                    "Failed to load products.";
+
+
+            }
+
+        }
+
+
+
+        // =========================
+        // CREATE CATEGORIES
+        // =========================
+
+        function createCategories() {
+
+            const select =
+                document.getElementById(
+                    "categorySelect"
+                );
+
+
+            const categories =
+                [
+                    ...new Set(
+                        allProducts
+                            .map(
+                                product =>
+                                    product.category
+                            )
+                    )
+                ];
+
+
+            categories.sort();
+
+
+            categories.forEach(
+                category => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+
+                    option.value =
+                        category;
+
+
+                    option.textContent =
+                        category;
+
+
+                    select.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        // =========================
+        // URL FILTERS
+        // =========================
+
+        function readURLFilters() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            const search =
+                params.get("search");
+
+
+            const category =
+                params.get("category");
+
+
+            if (search) {
+
+                document.getElementById(
+                    "searchInput"
+                ).value =
+                    search;
+
+            }
+
+
+            if (category) {
+
+                document.getElementById(
+                    "categorySelect"
+                ).value =
+                    category;
+
+            }
+
+
+            if (
+                search ||
+                category
+            ) {
+
+                applyFilters();
+
+            }
+
+        }
+
+
+
+        // =========================
+        // FILTER PRODUCTS
+        // =========================
+
+        function applyFilters() {
+
+            const search =
+                document.getElementById(
+                    "searchInput"
+                ).value
+                    .toLowerCase()
+                    .trim();
+
+
+            const category =
+                document.getElementById(
+                    "categorySelect"
+                ).value;
+
+
+            const filtered =
+                allProducts.filter(
+                    product => {
+
+                        const name =
+                            product.name
+                                .toLowerCase();
+
+
+                        const description =
+                            product.description
+                                .toLowerCase();
+
+
+                        const productCategory =
+                            product.category
+                                .toLowerCase();
+
+
+                        const matchesSearch =
+                            !search ||
+                            name.includes(search) ||
+                            description.includes(search) ||
+                            productCategory.includes(search);
+
+
+                        const matchesCategory =
+                            !category ||
+                            product.category === category;
+
+
+                        return (
+                            matchesSearch &&
+                            matchesCategory
+                        );
+
+                    }
+                );
+
+
+            displayProducts(
+                filtered
+            );
+
+        }
+
+
+
+        // =========================
+        // DISPLAY PRODUCTS
+        // =========================
+
+        function displayProducts(
+            products
+        ) {
+
+            const container =
+                document.getElementById(
+                    "productsContainer"
+                );
+
+
+            const loading =
+                document.getElementById(
+                    "loading"
+                );
+
+
+            const noProducts =
+                document.getElementById(
+                    "noProducts"
+                );
+
+
+            const resultInfo =
+                document.getElementById(
+                    "resultInfo"
+                );
+
+
+            loading.style.display =
+                "none";
+
+
+            container.innerHTML =
+                "";
+
+
+            resultInfo.textContent =
+                `${products.length} product${
+                    products.length !== 1
+                        ? "s"
+                        : ""
+                } found`;
+
+
+            if (products.length === 0) {
+
+                noProducts.style.display =
+                    "block";
+
+                return;
+
+            }
+
+
+            noProducts.style.display =
+                "none";
+
+
+            products.forEach(
+                product => {
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "product-card";
+
+
+                    const image =
+                        product.image ||
+                        "https://via.placeholder.com/500x500?text=No+Image";
+
+
+                    const stockText =
+                        product.stock > 0
+                            ? `Stock: ${product.stock}`
+                            : "Out of Stock";
+
+
+                    const outOfStock =
+                        product.stock <= 0;
+
+
+                    card.innerHTML = `
+
+                        <div class="product-image-box">
+
+                            <img
+                                class="product-image"
+                                src="${image}"
+                                alt="${escapeHTML(product.name)}"
+                                onerror="this.src='https://via.placeholder.com/500x500?text=No+Image'"
+                            >
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <div class="product-category">
+
+                                ${escapeHTML(
+                                    product.category
+                                )}
+
+                            </div>
+
+
+                            <h2 class="product-name">
+
+                                ${escapeHTML(
+                                    product.name
+                                )}
+
+                            </h2>
+
+
+                            <p class="product-description">
+
+                                ${escapeHTML(
+                                    product.description
+                                )}
+
+                            </p>
+
+
+                            <div class="product-price">
+
+                                Rs.
+                                ${Number(
+                                    product.price
+                                ).toLocaleString()}
+
+                            </div>
+
+
+                            <div class="product-stock">
+
+                                ${stockText}
+
+                            </div>
+
+
+                            <div class="buttons">
+
+                                <a
+                                    href="/product-details?id=${product._id}"
+                                    class="details-btn"
+                                >
+                                    View Details
+                                </a>
+
+
+                                <button
+                                    class="cart-btn"
+                                    ${
+                                        outOfStock
+                                            ? "disabled"
+                                            : ""
+                                    }
+                                    onclick="addToCart('${product._id}')"
+                                >
+
+                                    ${
+                                        outOfStock
+                                            ? "Out of Stock"
+                                            : "🛒 Add to Cart"
+                                    }
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        // =========================
+        // ADD TO CART
+        // =========================
+
+        async function addToCart(
+            productId
+        ) {
+
+            const token =
+                localStorage.getItem(
+                    "token"
+                );
+
+
+            if (!token) {
+
+                alert(
+                    "Please login first."
+                );
+
+
+                window.location.href =
+                    "/login";
+
+
+                return;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/cart/add",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "Authorization":
+                                    `Bearer ${token}`
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    productId:
+                                        productId,
+
+                                    quantity:
+                                        1
+
+                                })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (
+                    response.status === 401
+                ) {
+
+                    localStorage.removeItem(
+                        "token"
+                    );
+
+
+                    localStorage.removeItem(
+                        "user"
+                    );
+
+
+                    alert(
+                        "Session expired. Please login again."
+                    );
+
+
+                    window.location.href =
+                        "/login";
+
+
+                    return;
+
+                }
+
+
+                if (!response.ok) {
+
+                    showMessage(
+                        data.message ||
+                        "Failed to add product.",
+                        true
+                    );
+
+
+                    return;
+
+                }
+
+
+                showMessage(
+                    "Product added to cart! 🛒",
+                    false
+                );
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                showMessage(
+                    "Something went wrong.",
+                    true
+                );
+
+            }
+
+        }
+
+
+
+        // =========================
+        // MESSAGE
+        // =========================
+
+        function showMessage(
+            message,
+            isError
+        ) {
+
+            const box =
+                document.getElementById(
+                    "message"
+                );
+
+
+            box.textContent =
+                message;
+
+
+            box.style.display =
+                "block";
+
+
+            if (isError) {
+
+                box.style.background =
+                    "#dc2626";
+
+            } else {
+
+                box.style.background =
+                    "#16a34a";
+
+            }
+
+
+            setTimeout(
+                () => {
+
+                    box.style.display =
+                        "none";
+
+                },
+                2500
+            );
+
+        }
+
+
+
+        // =========================
+        // ESCAPE HTML
+        // =========================
+
+        function escapeHTML(
+            value
+        ) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                value || "";
+
+
+            return div.innerHTML;
+
+        }
+
+
+
+        // =========================
+        // ENTER KEY SEARCH
+        // =========================
+
+        document
+            .getElementById(
+                "searchInput"
+            )
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        applyFilters();
+
+                    }
+
+                }
+            );
+
+
+
+        // =========================
+        // START
+        // =========================
+
+        loadProducts();
+
+    </script>
+
+
+</body>
+
+</html>

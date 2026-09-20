@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Orders - ShopHub</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            background: #111827;
+            color: white;
+
+            padding: 18px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+
+        nav a {
+            color: white;
+            text-decoration: none;
+
+            margin-left: 20px;
+
+            font-size: 15px;
+        }
+
+
+        nav a:hover {
+            color: #60a5fa;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .page-header {
+            background: white;
+
+            padding: 45px 7%;
+
+            text-align: center;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .page-header h1 {
+            font-size: 36px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .page-header p {
+            color: #6b7280;
+
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 90%;
+
+            max-width: 1100px;
+
+            margin: 40px auto;
+        }
+
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .loading {
+            text-align: center;
+
+            background: white;
+
+            padding: 60px;
+
+            border-radius: 15px;
+
+            color: #6b7280;
+
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           EMPTY ORDERS
+        ========================= */
+
+        .empty-box {
+            display: none;
+
+            background: white;
+
+            text-align: center;
+
+            padding: 70px 20px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.06);
+        }
+
+
+        .empty-icon {
+            font-size: 60px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .empty-box h2 {
+            margin-bottom: 10px;
+        }
+
+
+        .empty-box p {
+            color: #6b7280;
+
+            margin-bottom: 25px;
+        }
+
+
+        .shop-btn {
+            display: inline-block;
+
+            background: #2563eb;
+
+            color: white;
+
+            padding: 13px 25px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           ORDERS
+        ========================= */
+
+        #ordersContainer {
+            display: none;
+        }
+
+
+        .order-card {
+            background: white;
+
+            border-radius: 15px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.06);
+
+            overflow: hidden;
+
+            border: 1px solid #e5e7eb;
+        }
+
+
+        /* =========================
+           ORDER HEADER
+        ========================= */
+
+        .order-header {
+            background: #f9fafb;
+
+            padding: 20px 25px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .order-id {
+            font-weight: bold;
+
+            font-size: 15px;
+        }
+
+
+        .order-date {
+            color: #6b7280;
+
+            font-size: 13px;
+
+            margin-top: 5px;
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            padding: 8px 15px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+        }
+
+
+        .status-pending {
+            background: #fef3c7;
+
+            color: #92400e;
+        }
+
+
+        .status-confirmed {
+            background: #dbeafe;
+
+            color: #1e40af;
+        }
+
+
+        .status-shipped {
+            background: #e0e7ff;
+
+            color: #3730a3;
+        }
+
+
+        .status-delivered {
+            background: #dcfce7;
+
+            color: #166534;
+        }
+
+
+        .status-cancelled {
+            background: #fee2e2;
+
+            color: #991b1b;
+        }
+
+
+        /* =========================
+           ORDER BODY
+        ========================= */
+
+        .order-body {
+            padding: 25px;
+        }
+
+
+        .section-title {
+            font-size: 17px;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================
+           PRODUCTS
+        ========================= */
+
+        .product-item {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+
+        .product-info {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .product-icon {
+            width: 48px;
+            height: 48px;
+
+            background: #eff6ff;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 23px;
+        }
+
+
+        .product-name {
+            font-weight: bold;
+
+            margin-bottom: 5px;
+        }
+
+
+        .product-details {
+            color: #6b7280;
+
+            font-size: 13px;
+        }
+
+
+        .product-price {
+            font-weight: bold;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================
+           ORDER INFORMATION
+        ========================= */
+
+        .order-info-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+
+            margin-top: 25px;
+        }
+
+
+        .info-box {
+            background: #f9fafb;
+
+            padding: 17px;
+
+            border-radius: 10px;
+
+            border: 1px solid #e5e7eb;
+        }
+
+
+        .info-label {
+            color: #6b7280;
+
+            font-size: 12px;
+
+            margin-bottom: 7px;
+
+            text-transform: uppercase;
+
+            font-weight: bold;
+        }
+
+
+        .info-value {
+            font-size: 14px;
+
+            font-weight: bold;
+
+            word-break: break-word;
+        }
+
+
+        /* =========================
+           TOTAL
+        ========================= */
+
+        .order-total {
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #e5e7eb;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .total-label {
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+
+        .total-price {
+            font-size: 24px;
+
+            font-weight: bold;
+
+            color: #2563eb;
+        }
+
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .message {
+            position: fixed;
+
+            top: 25px;
+
+            right: 25px;
+
+            padding: 15px 22px;
+
+            color: white;
+
+            border-radius: 9px;
+
+            display: none;
+
+            z-index: 1000;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #111827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 30px;
+
+            margin-top: 70px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            nav {
+                flex-direction: column;
+            }
+
+
+            nav a {
+                margin: 0 6px;
+
+                font-size: 13px;
+            }
+
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+
+            .order-header {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .order-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .product-item {
+                align-items: flex-start;
+            }
+
+
+            .product-price {
+                font-size: 14px;
+            }
+
+
+            .order-body {
+                padding: 18px;
+            }
+
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav>
+
+        <div class="logo">
+            🛍️ ShopHub
+        </div>
+
+
+        <div>
+
+            <a href="/">
+                Home
+            </a>
+
+
+            <a href="/products">
+                Products
+            </a>
+
+
+            <a href="/cart">
+                Cart 🛒
+            </a>
+
+
+            <a href="/orders">
+                My Orders
+            </a>
+
+
+            <a href="/profile">
+                Profile
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <section class="page-header">
+
+        <h1>
+            📦 My Orders
+        </h1>
+
+
+        <p>
+            Track and manage your orders
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <div class="container">
+
+
+        <!-- LOADING -->
+
+        <div
+            id="loading"
+            class="loading"
+        >
+            Loading your orders...
+        </div>
+
+
+
+        <!-- EMPTY -->
+
+        <div
+            id="emptyBox"
+            class="empty-box"
+        >
+
+            <div class="empty-icon">
+                📦
+            </div>
+
+
+            <h2>
+                No Orders Yet
+            </h2>
+
+
+            <p>
+                You haven't placed any orders yet.
+            </p>
+
+
+            <a
+                href="/products"
+                class="shop-btn"
+            >
+                Start Shopping
+            </a>
+
+        </div>
+
+
+
+        <!-- ORDERS -->
+
+        <div
+            id="ordersContainer"
+        >
+        </div>
+
+    </div>
+
+
+
+    <!-- MESSAGE -->
+
+    <div
+        id="message"
+        class="message"
+    >
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 ShopHub.
+            All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+
+        // =========================
+        // CHECK LOGIN
+        // =========================
+
+        function checkLogin() {
+
+            const token =
+                localStorage.getItem(
+                    "token"
+                );
+
+
+            if (!token) {
+
+                alert(
+                    "Please login to view your orders."
+                );
+
+
+                window.location.href =
+                    "/login";
+
+
+                return false;
+
+            }
+
+
+            return true;
+
+        }
+
+
+
+        // =========================
+        // LOAD ORDERS
+        // =========================
+
+        async function loadOrders() {
+
+            if (!checkLogin()) {
+                return;
+            }
+
+
+            const token =
+                localStorage.getItem(
+                    "token"
+                );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/orders/my-orders",
+                        {
+
+                            method: "GET",
+
+                            headers: {
+
+                                "Authorization":
+                                    `Bearer ${token}`
+
+                            }
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (
+                    response.status === 401
+                ) {
+
+                    localStorage.removeItem(
+                        "token"
+                    );
+
+                    localStorage.removeItem(
+                        "user"
+                    );
+
+
+                    alert(
+                        "Session expired. Please login again."
+                    );
+
+
+                    window.location.href =
+                        "/login";
+
+
+                    return;
+
+                }
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Failed to load orders"
+                    );
+
+                }
+
+
+                const orders =
+                    data.orders || [];
+
+
+                document.getElementById(
+                    "loading"
+                ).style.display =
+                    "none";
+
+
+                if (
+                    orders.length === 0
+                ) {
+
+                    document.getElementById(
+                        "emptyBox"
+                    ).style.display =
+                        "block";
+
+
+                    return;
+
+                }
+
+
+                document.getElementById(
+                    "ordersContainer"
+                ).style.display =
+                    "block";
+
+
+                displayOrders(
+                    orders
+                );
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                document.getElementById(
+                    "loading"
+                ).innerHTML = `
+
+                    <div>
+
+                        ❌ Failed to load orders.
+
+                        <br><br>
+
+                        <button
+                            onclick="loadOrders()"
+                            style="
+                                padding:10px 18px;
+                                border:none;
+                                border-radius:7px;
+                                background:#2563eb;
+                                color:white;
+                                cursor:pointer;
+                            "
+                        >
+                            Try Again
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+
+        // =========================
+        // DISPLAY ORDERS
+        // =========================
+
+        function displayOrders(
+            orders
+        ) {
+
+            const container =
+                document.getElementById(
+                    "ordersContainer"
+                );
+
+
+            container.innerHTML =
+                "";
+
+
+            orders.forEach(
+                order => {
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "order-card";
+
+
+                    const statusClass =
+                        getStatusClass(
+                            order.orderStatus
+                        );
+
+
+                    const orderDate =
+                        formatDate(
+                            order.createdAt
+                        );
+
+
+                    const productsHTML =
+                        createProductsHTML(
+                            order.items
+                        );
+
+
+                    card.innerHTML = `
+
+                        <div class="order-header">
+
+                            <div>
+
+                                <div class="order-id">
+
+                                    Order ID:
+                                    #${String(
+                                        order._id
+                                    ).slice(-8).toUpperCase()}
+
+                                </div>
+
+
+                                <div class="order-date">
+
+                                    Placed on:
+                                    ${orderDate}
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="status ${statusClass}"
+                            >
+
+                                ${escapeHTML(
+                                    order.orderStatus
+                                    || "Pending"
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="order-body">
+
+
+                            <h3 class="section-title">
+                                🛍️ Order Items
+                            </h3>
+
+
+                            ${productsHTML}
+
+
+
+                            <div class="order-info-grid">
+
+
+                                <div class="info-box">
+
+                                    <div class="info-label">
+                                        Payment
+                                    </div>
+
+
+                                    <div class="info-value">
+
+                                        💵
+                                        ${escapeHTML(
+                                            order.paymentMethod
+                                            || "Cash on Delivery"
+                                        )}
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="info-box">
+
+                                    <div class="info-label">
+                                        Delivery Address
+                                    </div>
+
+
+                                    <div class="info-value">
+
+                                        📍
+                                        ${escapeHTML(
+                                            order.shippingAddress
+                                            || "Not available"
+                                        )}
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="order-total">
+
+                                <span class="total-label">
+                                    Order Total
+                                </span>
+
+
+                                <span class="total-price">
+
+                                    Rs.
+                                    ${Number(
+                                        order.totalAmount || 0
+                                    ).toLocaleString()}
+
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        // =========================
+        // PRODUCTS HTML
+        // =========================
+
+        function createProductsHTML(
+            items
+        ) {
+
+            if (
+                !items ||
+                items.length === 0
+            ) {
+
+                return `
+
+                    <p style="color:#6b7280;">
+                        No products found.
+                    </p>
+
+                `;
+
+            }
+
+
+            return items.map(
+                item => {
+
+                    const itemTotal =
+                        Number(
+                            item.price || 0
+                        ) *
+                        Number(
+                            item.quantity || 0
+                        );
+
+
+                    return `
+
+                        <div class="product-item">
+
+
+                            <div class="product-info">
+
+                                <div class="product-icon">
+                                    🛍️
+                                </div>
+
+
+                                <div>
+
+                                    <div class="product-name">
+
+                                        ${escapeHTML(
+                                            item.name
+                                        )}
+
+                                    </div>
+
+
+                                    <div class="product-details">
+
+                                        Rs.
+                                        ${Number(
+                                            item.price || 0
+                                        ).toLocaleString()}
+
+                                        ×
+
+                                        ${item.quantity}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="product-price">
+
+                                Rs.
+                                ${itemTotal.toLocaleString()}
+
+                            </div>
+
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+        }
+
+
+
+        // =========================
+        // STATUS CLASS
+        // =========================
+
+        function getStatusClass(
+            status
+        ) {
+
+            switch (status) {
+
+                case "Confirmed":
+
+                    return "status-confirmed";
+
+
+                case "Shipped":
+
+                    return "status-shipped";
+
+
+                case "Delivered":
+
+                    return "status-delivered";
+
+
+                case "Cancelled":
+
+                    return "status-cancelled";
+
+
+                default:
+
+                    return "status-pending";
+
+            }
+
+        }
+
+
+
+        // =========================
+        // FORMAT DATE
+        // =========================
+
+        function formatDate(
+            dateString
+        ) {
+
+            if (!dateString) {
+
+                return "N/A";
+
+            }
+
+
+            const date =
+                new Date(
+                    dateString
+                );
+
+
+            return date.toLocaleDateString(
+                "en-PK",
+                {
+
+                    day: "2-digit",
+
+                    month: "short",
+
+                    year: "numeric",
+
+                    hour: "2-digit",
+
+                    minute: "2-digit"
+
+                }
+            );
+
+        }
+
+
+
+        // =========================
+        // ESCAPE HTML
+        // =========================
+
+        function escapeHTML(
+            value
+        ) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                value || "";
+
+
+            return div.innerHTML;
+
+        }
+
+
+
+        // =========================
+        // START
+        // =========================
+
+        loadOrders();
+
+
+    </script>
+
+
+</body>
+
+</html>
