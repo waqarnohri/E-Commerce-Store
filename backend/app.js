@@ -14,10 +14,27 @@ const adminRoutes = require("./routes/adminRoutes");
 const app = express();
 
 // ==========================================
-// MIDDLEWARE
+// CORS
 // ==========================================
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://e-commerce-store-a7zh-dh2zrc815-waqar-e-commerce.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
+  })
+);
+
+// Handle preflight requests
+app.options("*", cors());
+
+// ==========================================
+// MIDDLEWARE
+// ==========================================
 
 app.use(express.json());
 
