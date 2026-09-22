@@ -9,30 +9,16 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/app.js"
+      "dest": "/app.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,PATCH,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
     },
     {
       "src": "/(.*)",
       "dest": "/app.js"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "http://localhost:5173"
-        },
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET,POST,PUT,DELETE,PATCH,OPTIONS"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type, Authorization"
-        }
-      ]
     }
   ]
 }
